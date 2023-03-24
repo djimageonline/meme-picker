@@ -2,9 +2,25 @@ import { catsData } from "./data.js";
 
 const emotionRadios = document.getElementById("emotion-radios");
 
-emotionRadios.addEventListener("change", function (e) {
-  console.log(e.target.id);
-});
+const getImageBtn = document.getElementById("get-image-btn");
+getImageBtn.addEventListener("click", getMatchingCatsArray);
+
+function getMatchingCatsArray() {
+  if (document.querySelector('input[type="radio"]:checked')) {
+    const selectedEmotion = document.querySelector('input[type="radio"]:checked').value;
+    console.log(selectedEmotion);
+  }
+}
+
+emotionRadios.addEventListener("change", highlightCheckedOption);
+
+function highlightCheckedOption(e) {
+  let radioClassArray = document.getElementsByClassName("radio");
+  for (let radio of radioClassArray) {
+    radio.classList.remove("highlight");
+  }
+  document.getElementById(e.target.id).parentElement.classList.add("highlight");
+}
 
 function getEmotionsArray(cats) {
   const emotionsArray = [];
@@ -39,13 +55,3 @@ function renderEmotionsRadios(cats) {
 }
 
 renderEmotionsRadios(catsData);
-
-// function getEmotionsArray(cats) {
-//   const emotionsArray = [];
-//   for (let i = 0; i < cats.length; i++) {
-//     for (let j = 0; j < cats[i].emotionTags.length; j++) {
-//       emotionsArray.push(cats[i].emotionTags[j]);
-//     }
-//   }
-//   console.log(emotionsArray);
-// }
